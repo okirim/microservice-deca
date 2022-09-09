@@ -1,0 +1,30 @@
+server:
+  port: 5001
+#  error:
+#    include-message: always
+#    include-binding-errors: always
+spring:
+#  active:
+#     profiles: dev
+  cloud:
+    config:
+      uri: http://localhost:8888
+  datasource:
+    username: 'postgres'
+    url: jdbc:postgresql://localhost:5432/users
+    password: 'postgres'
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: 'true'
+    hibernate:
+      ddl-auto: create-drop
+      #ddl-auto: update # for production
+    show-sql: 'true'
+user:
+  config:
+    pageSize: 10
+
+app:
+  environment: dev
