@@ -4,6 +4,8 @@ server:
 #    include-message: always
 #    include-binding-errors: always
 spring:
+  application:
+    name: user
 #  active:
 #     profiles: dev
   cloud:
@@ -28,3 +30,9 @@ user:
 
 app:
   environment: dev
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true

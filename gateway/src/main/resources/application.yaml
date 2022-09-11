@@ -1,0 +1,27 @@
+server:
+  port: 8080
+spring:
+  main:
+    #allow-bean-definition-overriding: true
+    web-application-type: reactive  # No web application
+  application:
+    name: gateway
+#  zipkin:
+#    base-url: http://localhost:9411
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+        - id: app
+          uri: lb://USER
+          predicates:
+            - Path=/api/v1/users/**
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true

@@ -11,7 +11,11 @@
   <modules>
     <module>commons</module>
     <module>user</module>
-      <module>config</module>
+    <module>config</module>
+    <module>clients</module>
+    <module>eurekaserver</module>
+      <module>gateway</module>
+      <module>security</module>
   </modules>
 
   <name>zema-app</name>

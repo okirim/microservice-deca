@@ -6,3 +6,9 @@ spring:
       server:
         git:
           uri: "C:/Users/Abdelkader.DZL-41D5HK3.003/Desktop/train-boot/env"
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true

@@ -1,10 +1,10 @@
 package com.zema.commons.exceptions;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,10 +24,6 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 @Slf4j
 public class AppExceptionHandler extends ResponseEntityExceptionHandler {
-
-    @Value("${app.environment}")
-    private String environment;
-
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -63,13 +59,14 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorDetails errorDetails = new ErrorDetails();
         errorDetails.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         errorDetails.setMessage(ErrorMessage.INTERNAL_SERVER_ERROR.getErrorMessage());
-        errorDetails.setErrors(List.of(ex.getCause().getMessage()));
+        //errorDetails.setErrors(List.of(ex.getCause().getMessage()));
+        errorDetails.setErrors(List.of(ex.getMessage()));
 
         log.debug("Exception: {}", ex.getMessage());
 
-        if (environment.equals("dev")) {
-            errorDetails.setErrors(List.of(ex.getMessage()));
-        }
+//        if (environment.equals("dev")) {
+//            errorDetails.setErrors(List.of(ex.getMessage()));
+//        }
         return new ResponseEntity<>(errorDetails, errorDetails.getStatus());
     }
 
@@ -81,6 +78,22 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDetails, exception.getStatus());
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    ResponseEntity<Object> handleRuntimeException(RuntimeException exception) {
+        ErrorDetails errorDetails = new ErrorDetails();
+        errorDetails.setErrors(List.of(exception.getMessage()));
+        errorDetails.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    ResponseEntity<Object> handleAuthenticationException(AuthenticationException exception) {
+        ErrorDetails errorDetails = new ErrorDetails();
+        errorDetails.setErrors(List.of(exception.getMessage()));
+        errorDetails.setStatus(HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
+    }
+
     @ExceptionHandler(IOException.class)
     ResponseEntity<Object> iOException() {
         ErrorDetails errorDetails = new ErrorDetails();
@@ -89,13 +102,14 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDetails, errorDetails.getStatus());
     }
 
-    //    @ExceptionHandler(UsernameNotFoundException.class)
-//    ResponseEntity<Object> usernameNotFoundException() {
-//        ErrorDetails errorDetails = new ErrorDetails();
-//        errorDetails.setErrors(List.of(ErrorMessage.AUTHENTICATION_FAILED.getErrorMessage()));
-//        errorDetails.setStatus(HttpStatus.UNAUTHORIZED);
-//        return new ResponseEntity<>(errorDetails, errorDetails.getStatus());
-//    }
+    @ExceptionHandler(UsernameNotFoundException.class)
+    ResponseEntity<Object> usernameNotFoundException() {
+        ErrorDetails errorDetails = new ErrorDetails();
+        errorDetails.setErrors(List.of(ErrorMessage.AUTHENTICATION_FAILED.getErrorMessage()));
+        errorDetails.setStatus(HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(errorDetails, errorDetails.getStatus());
+    }
+
     @ExceptionHandler(SignatureException.class)
     ResponseEntity<Object> signatureException() {
         ErrorDetails errorDetails = new ErrorDetails();
@@ -124,4 +138,5 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         errorDetails.setStatus(HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(errorDetails, errorDetails.getStatus());
     }
+
 }
