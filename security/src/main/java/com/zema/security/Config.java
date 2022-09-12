@@ -1,4 +1,4 @@
-package com.zema.app.security;
+package com.zema.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

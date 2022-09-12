@@ -1,4 +1,4 @@
-package com.zema.app.security;
+package com.zema.security;
 
 import com.zema.commons.exceptions.AppException;
 import com.zema.commons.security.SecurityConstants;
@@ -8,8 +8,6 @@ import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -17,10 +15,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 @Slf4j
 public class AuthorizationFilter extends BasicAuthenticationFilter {
-
-
 
 
     public AuthorizationFilter(AuthenticationManager authenticationManager) {
@@ -29,6 +26,7 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+
         logger.info("doFilterInternal method called");
         //get the authorization header
         String authorizationHeader = request.getHeader(SecurityConstants.HEADER_STRING);

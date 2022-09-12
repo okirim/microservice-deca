@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 
-@SpringBootApplication(scanBasePackages = {"com.zema.user", "com.zema.commons"})
+@SpringBootApplication(scanBasePackages = {"com.zema.user", "com.zema.commons","com.zema.security"})
 public class UserApplication {
     public static void main(String[] args) {
         SpringApplication.run(UserApplication.class, args);

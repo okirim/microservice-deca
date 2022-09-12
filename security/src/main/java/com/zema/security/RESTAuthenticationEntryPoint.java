@@ -1,4 +1,4 @@
-package com.zema.app.security;
+package com.zema.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,6 @@ public class RESTAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) {
-        log.info("commence method called");
         resolver.resolveException(request, response, null, authException);
     }
 }

@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -85,15 +84,6 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         errorDetails.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-    @ExceptionHandler(AuthenticationException.class)
-    ResponseEntity<Object> handleAuthenticationException(AuthenticationException exception) {
-        ErrorDetails errorDetails = new ErrorDetails();
-        errorDetails.setErrors(List.of(exception.getMessage()));
-        errorDetails.setStatus(HttpStatus.UNAUTHORIZED);
-        return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
-    }
-
     @ExceptionHandler(IOException.class)
     ResponseEntity<Object> iOException() {
         ErrorDetails errorDetails = new ErrorDetails();
