@@ -1,5 +1,6 @@
 package com.zema.security;
 
+import com.zema.commons.BasePath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,8 +12,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true)//enable secure annotation
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)//enable secure annotation
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfig {
@@ -33,24 +35,18 @@ public class WebSecurityConfig {
                 .and()
                 .httpBasic().disable()
                 .authorizeHttpRequests((authz) -> authz
-                        .antMatchers(HttpMethod.GET,"/api/v1/users/**").permitAll()
+                        .antMatchers(HttpMethod.POST,BasePath.USER_CONTROLLER_PATH + "/**").permitAll()
+                        .antMatchers(HttpMethod.GET, "/api/v1/internal/users/**").permitAll()
+                        .antMatchers(HttpMethod.POST, BasePath.AUTH_CONTROLLER_PATH+"/**").permitAll()
                         .anyRequest().authenticated()
-                ).exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
+                ).exceptionHandling()
+                .authenticationEntryPoint(restAuthenticationEntryPoint);
 
-        //.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
-//                .exceptionHandling((ex) -> ex
-//                        .authenticationEntryPoint(restAuthenticationEntryPoint)
-//                );
-//                .authorizeRequests()
-//                .antMatchers(HttpMethod.GET,"/api/v1/users/**").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
+        http.addFilterBefore(new AuthorizationFilter(authenticationManager),
+                UsernamePasswordAuthenticationFilter.class);
 
-//        http.addFilterBefore(new AuthorizationFilter(authenticationManager),
-//                UsernamePasswordAuthenticationFilter.class);
-
-        //active h2 (enable 'pages')
-        //http.headers().frameOptions().disable();
+//        active h2 (enable 'pages')
+//        http.headers().frameOptions().disable();
         return http.build();
     }
 

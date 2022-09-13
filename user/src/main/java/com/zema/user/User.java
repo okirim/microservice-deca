@@ -2,6 +2,7 @@ package com.zema.user;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,6 +16,8 @@ import java.util.Date;
 @NoArgsConstructor
 //@PasswordMatch
 public class User implements Serializable {
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -65,6 +68,8 @@ public class User implements Serializable {
     @PrePersist
     private void beforePersist() {
         this.createdAt = new Date();
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        this.password= bCryptPasswordEncoder.encode(this.password);
     }
 
     @PreUpdate

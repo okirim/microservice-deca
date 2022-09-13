@@ -15,11 +15,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RestController
-@RequestMapping(path = BasePath.USER_CONTROLLER_PATH, produces={MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(produces={MediaType.APPLICATION_JSON_VALUE})
 @Slf4j
 public class UserController {
     @Autowired
@@ -27,7 +26,7 @@ public class UserController {
     @Autowired
     ModelMapper modelMapper;
 
-    @GetMapping
+    @GetMapping(BasePath.USER_CONTROLLER_PATH)
         public ResponseEntity<HttpResponseWithPagination<List<UserVM>>> getUsers(@RequestParam(defaultValue = "1") String page) {
         int currentPage = Integer.parseInt(page);
         Page<User> usersPage = userService.getUsers(currentPage);
@@ -46,7 +45,7 @@ public class UserController {
 
         return new ResponseEntity<>(httpResponseWithPagination, HttpStatus.OK);
     }
-    @PostMapping()
+    @PostMapping(BasePath.USER_CONTROLLER_PATH)
     public ResponseEntity<HttpResponse<UserVM>> create(@Valid @RequestBody UserCreateDto userCreateDto) {
         User user= modelMapper.map(userCreateDto,User.class);
         User newUser = userService.register(user);
@@ -58,7 +57,7 @@ public class UserController {
         return new ResponseEntity<>(httpResponse, HttpStatus.OK);
     }
 
-    @PatchMapping(path = "/{id}")
+    @PatchMapping(path = BasePath.USER_CONTROLLER_PATH+"/{id}")
     public ResponseEntity<HttpResponse<UserVM>> update(@PathVariable("id") String id,@Valid @RequestBody UserUpdateDto userUpdateDto) {
         Long userId = Long.parseLong(id);
         User user = userService.update(userId,userUpdateDto);
@@ -67,7 +66,7 @@ public class UserController {
         httpResponse.setData(userResponse);
         return new ResponseEntity<>(httpResponse, HttpStatus.OK);
     }
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = BasePath.USER_CONTROLLER_PATH+"/{id}")
     public ResponseEntity<HttpResponse<UserVM>> getUser(@PathVariable("id") String id) {
         Long userId = Long.parseLong(id);
         User user = userService.getUser(userId);
@@ -76,11 +75,22 @@ public class UserController {
         httpResponse.setData(userResponse);
         return new ResponseEntity<>(httpResponse, HttpStatus.OK);
     }
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = BasePath.USER_CONTROLLER_PATH+"/{id}")
     public ResponseEntity<HttpResponse> delete(@PathVariable("id") String id) {
         Long userId = Long.parseLong(id);
         userService.delete(userId);
         HttpResponse<UserVM> httpResponse = new HttpResponse<>();
         return new ResponseEntity<>(httpResponse, HttpStatus.OK);
     }
+
+   @GetMapping(path = "/api/v1/internal/users/{id}")
+    public Optional<User> getUserInternally(@PathVariable("id") String id) {
+        Long userId = Long.parseLong(id);
+        return userService.getUserInternally(userId);
+    }
+    @GetMapping(path = "/api/v1/internal/users/username/{email}")
+    public Optional<User> getUserInternallyByEmail(@PathVariable("email") String email) {
+        return userService.getUserInternallyByEmail(email);
+    }
+
 }

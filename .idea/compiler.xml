@@ -10,6 +10,7 @@
         <module name="eurekaserver" />
         <module name="security" />
         <module name="clients" />
+        <module name="auth" />
         <module name="user" />
         <module name="config" />
         <module name="commons" />

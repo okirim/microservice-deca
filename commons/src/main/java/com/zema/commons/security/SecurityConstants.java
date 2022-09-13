@@ -13,6 +13,26 @@ public class SecurityConstants {
     public static final int EXPIRATION_TIME_COOKIE=432_000;//5 DAYS in seconds
     public static final int EXPIRATION_TIME_COOKIE_SHORT=86_400;//1 DAYS in seconds
     public static final String COOKIE_NAME="s_xdjs8";//5 DAYS
-    public static final String SECURITY_KEY="s_xdjs8_short";//1 DAY
+    public static final String SECURITY_KEY="mknjhbubloijjzhy77zhajuz8zhnsnia8ushanmxsi9s8uahnsjsusjns" +
+            "qwjshsgy7s7n=snhsyshsnsusnnxhiiou8g7gybtvtrcrctbubyubnim" +
+            "zapjshsg0ok8nhsyshsnsujjijiojuhbtvtrcrcujjut8otbubyubnim" +
+            "zapjshsg0ok8nhsyshsnsujjijiojuhbtvtrcrcujjut8otbubyubnim" +
+            "zapjshsg0ok8nhsyshsnsujjijiojuhbtvtrcrcujjut8otbubyubnim" +
+            "zapjshsg0ok8nhsyshsnsujjijiojuhbtvtrcrcujjut8otbubyubnim" +
+            "zapjshsg0ok8nhsyshsnsujjijiojuhbtvtrcrcujjut8otbubyubnim" +
+            "zapjshsg0ok8nhsyshsnsujjijiojuhbtvtrcrcujjut8otbubyubnim" +
+            "zapjshsg0ok8nhsyshsnsujjijiojuhbtvtrcrcujjut8otbubyubnim" +
+            "zapjshsg0ok8nhsyshsnsujjijiojuhbtvtrcrcujjut8otbubyubnim" +
+            "zapjshsg0ok8nhsyshsnsujjijiojuhbtvtrcrcujjut8otbubyubnim" +
+            "zapjshsg0ok8nhsyshsnsujjijiojuhbtvtrcrcujjut8otbubyubnim" +
+            "zapjshsg0ok8nhsyshsnsujjijiojuhbtvtrcrcujjut8otbubyubnim" +
+            "zapjshsg0ok8nhsyshsnsujjijiojuhbtvtrcrcujjut8otbubyubnim" +
+            "zapjshsg0ok8nhsyshsnsujjijiojuhbtvtrcrcujjut8otbubyubnim" +
+            "zapjshsg0ok8nhsyshsnsujjijiojuhbtvtrcrcujjut8otbubyubnim" +
+            "zapjshsg0ok8nhsyshsnsujjijiojuhbtvtrcrcujjut8otbubyubnim" +
+            "zapjshsg0ok8nhsyshsnsujjijiojuhbtvtrcrcujjut8otbubyubnim" +
+            "zapjshsg0ok8nhsyshsnsujjijiojuhbtvtrcrcujjut8otbubyubnim" +
+            "jshs200kqkogha7hkpa0skmusnnxhiiou8g7gybtvtrcrctbubyubnim" +
+            "kkmjnbuyg8h9j9jnionuh8tv,p,i9hyg6t7yun7g6rfy8ytcvgy ygv5";//1 DAY
 
 }

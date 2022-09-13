@@ -56,8 +56,8 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails();
-        errorDetails.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-        errorDetails.setMessage(ErrorMessage.INTERNAL_SERVER_ERROR.getErrorMessage());
+        errorDetails.setStatus(status);
+        errorDetails.setMessage(ex.getMessage());
         //errorDetails.setErrors(List.of(ex.getCause().getMessage()));
         errorDetails.setErrors(List.of(ex.getMessage()));
 
@@ -81,8 +81,8 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     ResponseEntity<Object> handleRuntimeException(RuntimeException exception) {
         ErrorDetails errorDetails = new ErrorDetails();
         errorDetails.setErrors(List.of(exception.getMessage()));
-        errorDetails.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+        errorDetails.setStatus(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(IOException.class)
     ResponseEntity<Object> iOException() {
@@ -93,18 +93,18 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
-    ResponseEntity<Object> usernameNotFoundException() {
+    ResponseEntity<Object> usernameNotFoundException(UsernameNotFoundException exception) {
         ErrorDetails errorDetails = new ErrorDetails();
-        errorDetails.setErrors(List.of(ErrorMessage.AUTHENTICATION_FAILED.getErrorMessage()));
+        errorDetails.setErrors(List.of(exception.getMessage()));
         errorDetails.setStatus(HttpStatus.UNAUTHORIZED);
         return new ResponseEntity<>(errorDetails, errorDetails.getStatus());
     }
 
     @ExceptionHandler(SignatureException.class)
-    ResponseEntity<Object> signatureException() {
+    ResponseEntity<Object> signatureException(SignatureException exception, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails();
-        errorDetails.setErrors(List.of(ErrorMessage.AUTHENTICATION_FAILED.getErrorMessage()));
-        errorDetails.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        errorDetails.setErrors(List.of(exception.getMessage()));
+        errorDetails.setStatus(status);
         return new ResponseEntity<>(errorDetails, errorDetails.getStatus());
     }
 

@@ -4,22 +4,29 @@ import com.zema.commons.exceptions.AppException;
 import com.zema.commons.exceptions.ErrorMessage;
 import com.zema.user.dto.UserUpdateDto;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 @Slf4j
-public class UserService {
+public class UserService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
     @Value("${user.config.pageSize:10}")
     private String pageSize;
+
+    @Autowired
+    ModelMapper modelMapper;
 
     public Page<User> getUsers(int page) {
         int limit = Integer.parseInt(pageSize);
@@ -58,6 +65,20 @@ public class UserService {
         }
         return user.get();
     }
+    public Optional<User> getUserInternally(Long id) {
+        return userRepository.findById(id);
+    }
+  public Optional<User> getUserInternallyByEmail(String email) {
+      return userRepository.findByEmail(email);
+    }
+
+    public User getUserByEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isEmpty()) {
+            throw new AppException(ErrorMessage.NOT_FOUND_RECODE.getErrorMessage(), HttpStatus.NOT_FOUND);
+        }
+        return user.get();
+    }
 
     public void delete(Long id) {
         Optional<User> user = userRepository.findById(id);
@@ -68,4 +89,12 @@ public class UserService {
     }
 
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> user = userRepository.findByEmail(username);
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return modelMapper.map(user.get(), UserDetails.class);
+    }
 }

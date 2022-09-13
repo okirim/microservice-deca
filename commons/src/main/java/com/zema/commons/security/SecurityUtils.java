@@ -26,16 +26,17 @@ public class SecurityUtils {
                 .parseClaimsJws(token).getBody();
     }
 
-    public static String generateToken(String username, Long expireAfter) {
+    public static String generateToken(Long userId, Long expireAfter) {
+        String id=userId.toString();
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(id)
                 .setExpiration(new Date(System.currentTimeMillis() + expireAfter))
                 .signWith(getKey(), SignatureAlgorithm.HS512)
                 .compact();
     }
 
-    private static SecretKey getKey() {
-        return Keys.secretKeyFor(SignatureAlgorithm.HS512);
+    public static SecretKey getKey() {
+        return Keys.hmacShaKeyFor(SecurityConstants.SECURITY_KEY.getBytes());
     }
 
 }

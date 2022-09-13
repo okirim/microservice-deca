@@ -19,6 +19,7 @@ spring:
           uri: lb://USER
           predicates:
             - Path=/api/v1/users/**
+      #TODO: add not found route handler
 eureka:
   client:
     service-url:

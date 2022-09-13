@@ -64,7 +64,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "jdk.selected.JAVA_MODULE": "17",
     "last_opened_file_path": "C:/Users/Abdelkader.DZL-41D5HK3.003/Desktop/train-boot/user/src/main/java/com/zema/user",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -82,14 +82,17 @@
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.zema.user" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.zema.auth" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.UserApplication">
-    <configuration name="ConfigApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.zema.config.ConfigApplication" />
-      <module name="config" />
+  <component name="RunManager" selected="Application.AuthApplication">
+    <configuration name="AuthApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.zema.auth.AuthApplication" />
+      <module name="auth" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.zema.config.*" />
+          <option name="PATTERN" value="com.zema.auth.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -154,10 +157,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.UserApplication" />
+        <item itemvalue="Application.AuthApplication" />
         <item itemvalue="Application.GatewayApplication" />
         <item itemvalue="Application.ServerDiscovery" />
         <item itemvalue="JUnit.UserControllerTest" />
-        <item itemvalue="Application.ConfigApplication" />
       </list>
     </recent_temporary>
   </component>
