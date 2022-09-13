@@ -73,17 +73,17 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     ResponseEntity<Object> handleServiceException(AppException exception) {
         ErrorDetails errorDetails = new ErrorDetails();
         errorDetails.setErrors(List.of(exception.getMessage()));
-        errorDetails.setStatus(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(errorDetails, exception.getStatus());
+        errorDetails.setStatus(HttpStatus.CONFLICT);
+        return new ResponseEntity<>(errorDetails, HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    ResponseEntity<Object> handleRuntimeException(RuntimeException exception) {
-        ErrorDetails errorDetails = new ErrorDetails();
-        errorDetails.setErrors(List.of(exception.getMessage()));
-        errorDetails.setStatus(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
-    }
+//    @ExceptionHandler(RuntimeException.class)
+//    ResponseEntity<Object> handleRuntimeException(RuntimeException exception) {
+//        ErrorDetails errorDetails = new ErrorDetails();
+//        errorDetails.setErrors(List.of(exception.getMessage()));
+//        errorDetails.setStatus(HttpStatus.BAD_REQUEST);
+//        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+//    }
     @ExceptionHandler(IOException.class)
     ResponseEntity<Object> iOException() {
         ErrorDetails errorDetails = new ErrorDetails();

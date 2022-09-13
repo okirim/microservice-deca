@@ -1,16 +1,12 @@
 package com.zema.security;
 
 import com.zema.clients.user.User;
-import com.zema.clients.user.UserClient;
 import com.zema.commons.security.SecurityConstants;
-import com.zema.commons.security.SecurityUtils;
 import com.zema.commons.validations.ValidationUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,7 +22,6 @@ import java.util.ArrayList;
 
 @Slf4j
 public class AuthorizationFilter extends BasicAuthenticationFilter {
-
 
 
     AuthenticationManager authenticationManager;
@@ -68,18 +63,15 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
             chain.doFilter(request, response);
             return;
         }
-        log.info("userId {}",userId);
+        log.info("userId {}", userId);
         // System.out.println("username: "+username);
         // get user
-
-
-            RestTemplate restTemplate = new RestTemplate();
-            var user = restTemplate.getForObject("http://localhost:5001/api/v1/internal/users/" + userId, User.class);
-            log.info("user {}",user);
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            //authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>()));
-            chain.doFilter(request, response);
+        RestTemplate restTemplate = new RestTemplate();
+        var user = restTemplate.getForObject(SecurityConstants.GET_USER_INTERNALLY_BASE_PATH +"/"+ userId, User.class);
+        log.info("user {}", user);
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        chain.doFilter(request, response);
     }
 
     private String getJwtFromHeader(String authorizationHeader) {

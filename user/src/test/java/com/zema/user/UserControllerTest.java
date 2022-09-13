@@ -158,10 +158,19 @@ public class UserControllerTest {
         assertThat(Objects.requireNonNull(response.getBody()).getErrors().get(0)).isEqualTo(errorMessageEs);
     }
 
+    @Test
+    public void test_get_users_failed_Unauthorized() {
+          var response = testRestTemplate.exchange(BasePath.USER_CONTROLLER_PATH, HttpMethod.GET, null, new ParameterizedTypeReference<ErrorDetails>() {
+            });
+            assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+    }
+
 
     private UserCreateDto makeUser() {
         UserCreateDto userCreateDto = modelMapper.map(user, UserCreateDto.class);
         userCreateDto.setConfirmPassword(user.getPassword());
         return userCreateDto;
     }
+
+
 }

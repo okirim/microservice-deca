@@ -13,6 +13,7 @@ public class SecurityConstants {
     public static final int EXPIRATION_TIME_COOKIE=432_000;//5 DAYS in seconds
     public static final int EXPIRATION_TIME_COOKIE_SHORT=86_400;//1 DAYS in seconds
     public static final String COOKIE_NAME="s_xdjs8";//5 DAYS
+    public static final String GET_USER_INTERNALLY_BASE_PATH="http://localhost:5001/api/v1/internal/users";//1 DAY
     public static final String SECURITY_KEY="mknjhbubloijjzhy77zhajuz8zhnsnia8ushanmxsi9s8uahnsjsusjns" +
             "qwjshsgy7s7n=snhsyshsnsusnnxhiiou8g7gybtvtrcrctbubyubnim" +
             "zapjshsg0ok8nhsyshsnsujjijiojuhbtvtrcrcujjut8otbubyubnim" +
