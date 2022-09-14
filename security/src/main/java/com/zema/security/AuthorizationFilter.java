@@ -9,6 +9,7 @@ import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.client.RestTemplate;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 public class AuthorizationFilter extends BasicAuthenticationFilter {
@@ -43,8 +45,6 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
         }
         //get the token
         String jwt = getJwtFromHeader(authorizationHeader);
-        //System.out.println("jwt: "+jwt);
-        //  System.out.println("key "+Keys.hmacShaKeyFor(SecurityConstants.SECURITY_KEY.getBytes()));
         if (jwt == null) {
             chain.doFilter(request, response);
             return;
@@ -55,21 +55,17 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
                 .setSigningKey(Keys.hmacShaKeyFor(SecurityConstants.SECURITY_KEY.getBytes())) // (2)
                 .build()// (3)
                 .parseClaimsJws(jwt).getBody();
-        // System.out.println("claims: "+claims);
-        // get username (email)
-
         var userId = claims.getSubject();
         if (!ValidationUtils.validId(userId)) {
             chain.doFilter(request, response);
             return;
         }
-        log.info("userId {}", userId);
-        // System.out.println("username: "+username);
-        // get user
+        //INFO: call user service to get user details
         RestTemplate restTemplate = new RestTemplate();
         var user = restTemplate.getForObject(SecurityConstants.GET_USER_INTERNALLY_BASE_PATH +"/"+ userId, User.class);
-        log.info("user {}", user);
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+        //TODO: add authorities
+        List<? extends GrantedAuthority> authorities = new ArrayList<>();
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, authorities);
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         chain.doFilter(request, response);
     }

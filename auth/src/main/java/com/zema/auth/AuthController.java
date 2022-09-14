@@ -1,8 +1,10 @@
 package com.zema.auth;
 
+import com.zema.commons.reponses.HttpResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +21,8 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public AuthVM login(@Valid @RequestBody AuthDto authDto) {
+    public ResponseEntity<AuthVM> login(@Valid @RequestBody AuthDto authDto) {
         var token = authService.login(authDto);
-        return new AuthVM(token);
+        return ResponseEntity.ok(new AuthVM(token));
     }
-
-
 }

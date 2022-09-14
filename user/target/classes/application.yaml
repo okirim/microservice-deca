@@ -36,3 +36,25 @@ eureka:
       defaultZone: http://localhost:8761/eureka
     fetch-registry: true
     register-with-eureka: true
+---
+spring:
+  application:
+    name: user
+    active:
+       profiles: test
+  cloud:
+    config:
+      uri: http://localhost:8888
+  datasource:
+    username: 'postgres'
+    url: jdbc:postgresql://localhost:5432/users_test
+    password: 'postgres'
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: 'true'
+    hibernate:
+      ddl-auto: create-drop
+      #ddl-auto: update # for production
+    show-sql: 'true'

@@ -1,12 +1,14 @@
-package com.zema.auth;
+package com.zema.commons.reponses.auth;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+
 @Data
 @NoArgsConstructor
-public class AuthVM implements Serializable {
+public class AuthVM implements Serializable{
     String accessToken;
 
     public AuthVM(String accessToken) {

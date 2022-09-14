@@ -4,6 +4,10 @@ package com.zema.user;
 import com.zema.commons.BasePath;
 import com.zema.commons.exceptions.ErrorDetails;
 import com.zema.commons.reponses.HttpResponse;
+import com.zema.commons.reponses.HttpResponseWithPagination;
+import com.zema.commons.reponses.auth.AuthReq;
+import com.zema.commons.reponses.auth.AuthVM;
+import com.zema.commons.security.SecurityConstants;
 import com.zema.user.dto.UserCreateDto;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -15,10 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -42,6 +43,7 @@ public class UserControllerTest {
 
     User user;
 
+    private String plainTextPassword="PoissonRouge2022";
 
     @BeforeEach
     public void setUp() {
@@ -55,7 +57,7 @@ public class UserControllerTest {
         user = new User();
         user.setEmail("jhonDoe@gmail.com");
         user.setUsername("Jhon");
-        user.setPassword("PoissonRouge2022");
+        user.setPassword(this.plainTextPassword);
 
         userRepository.deleteAll();
     }
@@ -165,6 +167,40 @@ public class UserControllerTest {
             assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
     }
 
+    @Test
+    public void test_get_users_with_authorization_header_should_success(){
+        //create user
+        UserVM userVM = createUser();
+        //login
+        ResponseEntity<AuthVM> loginResponse = login(userVM);
+        var token= Objects.requireNonNull(Objects.requireNonNull(loginResponse.getBody()).getAccessToken());
+        //get users
+        HttpHeaders headers=getHttpAuthorizationHeader(token);
+        var response = testRestTemplate.exchange(BasePath.USER_CONTROLLER_PATH, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<HttpResponseWithPagination<List<UserVM>>>() {
+        });
+        //assert
+        var users= Objects.requireNonNull(response.getBody()).getData().size();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(users).isEqualTo(users);
+
+    }
+
+    private HttpHeaders getHttpAuthorizationHeader(String token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
+        return headers;
+    }
+
+    private ResponseEntity<AuthVM> login(UserVM userVM) {
+        ModelMapper modelMapper = new ModelMapper();
+        var loginDto = modelMapper.map(userVM, AuthReq.class);
+        loginDto.setEmail(userVM.getEmail());
+        loginDto.setPassword(plainTextPassword);
+        String loginUrl="http://localhost:5002/api/v1/auth/login";
+        return testRestTemplate.exchange(loginUrl,HttpMethod.POST,new HttpEntity<>(loginDto),  new ParameterizedTypeReference<AuthVM>() {
+        });
+    }
+
 
     private UserCreateDto makeUser() {
         UserCreateDto userCreateDto = modelMapper.map(user, UserCreateDto.class);
@@ -172,5 +208,11 @@ public class UserControllerTest {
         return userCreateDto;
     }
 
+    private UserVM createUser() {
+        UserCreateDto userCreateDto = makeUser();
+        var response = testRestTemplate.exchange(BasePath.USER_CONTROLLER_PATH, HttpMethod.POST, new HttpEntity<>(userCreateDto), new ParameterizedTypeReference<HttpResponse<UserVM>>() {
+        });
+        return Objects.requireNonNull(response.getBody()).getData();
+    }
 
 }
