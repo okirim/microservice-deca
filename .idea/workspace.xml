@@ -5,22 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c10e5ea7-791e-46cb-baff-0de4097b7d7f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/authorization/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authorization/src/main/java/com/zema/app/AuthorizationApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authorization/src/test/java/com/zema/app/AppTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/zema/commons/BasePath.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/zema/commons/BasePath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commons/target/classes/com/zema/commons/BasePath.class" beforeDir="false" afterPath="$PROJECT_DIR$/commons/target/classes/com/zema/commons/BasePath.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authorization/src/test/java/com/zema/app/RoleControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/authorization/src/test/java/com/zema/app/RoleControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authorization/target/test-classes/com/zema/app/RoleControllerTest$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/authorization/target/test-classes/com/zema/app/RoleControllerTest$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authorization/target/test-classes/com/zema/app/RoleControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/authorization/target/test-classes/com/zema/app/RoleControllerTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/env/user.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/env/user.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/security/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/com/zema/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/com/zema/security/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/target/classes/com/zema/security/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/security/target/classes/com/zema/security/WebSecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/zema/user/SecurityExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/zema/user/SecurityExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/src/test/java/com/zema/user/UserControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/test/java/com/zema/user/UserControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/target/classes/com/zema/user/SecurityExceptionHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/com/zema/security/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/com/zema/security/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/target/classes/com/zema/security/Config.class" beforeDir="false" afterPath="$PROJECT_DIR$/security/target/classes/com/zema/security/Config.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,39 +86,13 @@
       <recent name="com.zema.auth" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.RoleControllerTest">
+  <component name="RunManager" selected="JUnit.RoleControllerTest.testCreateRoleWithValidData">
     <configuration name="AuthorizationApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.zema.app.AuthorizationApplication" />
       <module name="authorization" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.zema.app.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ServerDiscovery" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.zema.eurekaserver.ServerDiscovery" />
-      <module name="eurekaserver" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.zema.eurekaserver.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.zema.user.UserApplication" />
-      <module name="user" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.zema.user.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -150,7 +115,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RoleControllerTest.test_succeeds" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RoleControllerTest.getRoles" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="authorization" />
       <extension name="coverage">
         <pattern>
@@ -160,7 +125,39 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.zema.app" />
       <option name="MAIN_CLASS_NAME" value="com.zema.app.RoleControllerTest" />
-      <option name="METHOD_NAME" value="test_succeeds" />
+      <option name="METHOD_NAME" value="getRoles" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RoleControllerTest.testCreateRoleWithValidData" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="authorization" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.zema.app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.zema.app" />
+      <option name="MAIN_CLASS_NAME" value="com.zema.app.RoleControllerTest" />
+      <option name="METHOD_NAME" value="testCreateRoleWithValidData" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserControllerTest.test_get_users_failed_Unauthorized" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="user" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.zema.user.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.zema.user" />
+      <option name="MAIN_CLASS_NAME" value="com.zema.user.UserControllerTest" />
+      <option name="METHOD_NAME" value="test_get_users_failed_Unauthorized" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -168,11 +165,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.RoleControllerTest.testCreateRoleWithValidData" />
+        <item itemvalue="JUnit.RoleControllerTest.getRoles" />
+        <item itemvalue="JUnit.UserControllerTest.test_get_users_failed_Unauthorized" />
         <item itemvalue="JUnit.RoleControllerTest" />
         <item itemvalue="Application.AuthorizationApplication" />
-        <item itemvalue="Application.ServerDiscovery" />
-        <item itemvalue="Application.UserApplication" />
-        <item itemvalue="JUnit.RoleControllerTest.test_succeeds" />
       </list>
     </recent_temporary>
   </component>
@@ -213,8 +210,8 @@
     <SUITE FILE_PATH="coverage/train_boot$UserControllerTest_test_get_users_with_authorization_header_should_success.ic" NAME="UserControllerTest.test_get_users_with_authorization_header_should_success Coverage Results" MODIFIED="1663161545941" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.zema.user.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/train_boot$RoleControllerTest_getRoles.ic" NAME="RoleControllerTest.getRoles Coverage Results" MODIFIED="1663190510725" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>com.zema.app.role.*</FILTER>
+    <SUITE FILE_PATH="coverage/train_boot$RoleControllerTest_getRoles.ic" NAME="RoleControllerTest.getRoles Coverage Results" MODIFIED="1663253687889" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.zema.app.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/train_boot$GatewayApplication.ic" NAME="GatewayApplication Coverage Results" MODIFIED="1662919079577" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.zema.gateway.*</FILTER>

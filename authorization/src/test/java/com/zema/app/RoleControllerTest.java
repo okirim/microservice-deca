@@ -31,10 +31,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 public class RoleControllerTest {
 
-    @Test
-    public void getRoles() {
-        assertThat(true).isTrue();
-    }
 
 
     @Autowired
@@ -64,8 +60,8 @@ public class RoleControllerTest {
 
     private Role makeRole(){
         Role role = new Role();
-        role.setName("test");
-        role.setDescription("test");
+        role.setName("role name 1");
+        role.setDescription("lorem ipsum");
         return role;
     }
 
