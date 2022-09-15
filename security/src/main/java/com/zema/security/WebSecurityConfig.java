@@ -40,6 +40,8 @@ public class WebSecurityConfig {
                         .antMatchers(HttpMethod.POST,BasePath.USER_CONTROLLER_PATH + "/**").permitAll()
                         .antMatchers(HttpMethod.GET, "/api/v1/internal/users/**").permitAll()
                         .antMatchers(HttpMethod.POST, BasePath.AUTH_CONTROLLER_PATH+"/**").permitAll()
+                        .antMatchers( BasePath.ROLE_CONTROLLER_PATH+"/**").permitAll()
+                       // .antMatchers("/api/v1/roles").permitAll()
                         .anyRequest().authenticated()
                 ).exceptionHandling()
                 .authenticationEntryPoint(restAuthenticationEntryPoint);

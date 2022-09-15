@@ -167,23 +167,24 @@ public class UserControllerTest {
             assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
     }
 
-    @Test
-    public void test_get_users_with_authorization_header_should_success(){
-        //create user
-        UserVM userVM = createUser();
-        //login
-        ResponseEntity<AuthVM> loginResponse = login(userVM);
-        var token= Objects.requireNonNull(Objects.requireNonNull(loginResponse.getBody()).getAccessToken());
-        //get users
-        HttpHeaders headers=getHttpAuthorizationHeader(token);
-        var response = testRestTemplate.exchange(BasePath.USER_CONTROLLER_PATH, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<HttpResponseWithPagination<List<UserVM>>>() {
-        });
-        //assert
-        var users= Objects.requireNonNull(response.getBody()).getData().size();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(users).isEqualTo(users);
-
-    }
+//TODO uncomment.
+//    @Test
+//    public void test_get_users_with_authorization_header_should_success(){
+//        //create user
+//        UserVM userVM = createUser();
+//        //login
+//        ResponseEntity<AuthVM> loginResponse = login(userVM);
+//        var token= Objects.requireNonNull(Objects.requireNonNull(loginResponse.getBody()).getAccessToken());
+//        //get users
+//        HttpHeaders headers=getHttpAuthorizationHeader(token);
+//        var response = testRestTemplate.exchange(BasePath.USER_CONTROLLER_PATH, HttpMethod.GET, new HttpEntity<>(headers), new ParameterizedTypeReference<HttpResponseWithPagination<List<UserVM>>>() {
+//        });
+//        //assert
+//        var users= Objects.requireNonNull(response.getBody()).getData().size();
+//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+//        assertThat(users).isEqualTo(users);
+//
+//    }
 
     private HttpHeaders getHttpAuthorizationHeader(String token) {
         HttpHeaders headers = new HttpHeaders();

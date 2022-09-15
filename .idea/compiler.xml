@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="eurekaserver" />
+        <module name="authorization" />
         <module name="security" />
         <module name="clients" />
         <module name="auth" />
@@ -19,6 +20,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="exceptions" target="17" />
+      <module name="permission" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
